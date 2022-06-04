@@ -28,6 +28,7 @@ colors = {
 import pandas as pd
 import numpy as np
 from wordcloud import WordCloud
+from metrics import get_inds
 
 def draw_wordcloud(texts, max_words=1000, width=900, height=400, random_state=10):
     wordcloud = WordCloud(background_color='white', max_words=max_words,
@@ -40,12 +41,12 @@ def draw_wordcloud(texts, max_words=1000, width=900, height=400, random_state=10
 
 def draw_cluster_clouds(data, clusters, n_clusters, alert_by='text', cloud_kwargs={}):
     for i in range(n_clusters):
-        print('cluster:', i + 1)
-        inds = np.argwhere(clusters == i)
+        inds = get_inds(clusters, i)
+        print('cluster: {}; samples: {}'.format(i + 1, len(inds)))
         if len(inds) == 0:
             print('empty')
             continue
-        display(draw_wordcloud(data.iloc[inds.reshape((-1,))][alert_by], **cloud_kwargs))
+        display(draw_wordcloud(data.iloc[inds][alert_by], **cloud_kwargs))
 
 
 def plot_data_embs(data_tsne: dict, title=''):
@@ -58,7 +59,7 @@ def plot_data_embs(data_tsne: dict, title=''):
         axes[j].set_xlabel('dim 1', fontsize=15)
 
     if title != '':
-        fig.suptitle(title, fontsize=20)
+        fig.suptitle(title, y=1.0, fontsize=25)
     plt.show()
 
 
@@ -100,6 +101,8 @@ def plot_clustering(n_clusters, data_tsne: dict, labels: dict, methods: list, em
                 axes[j][i].set_ylabel(emb_name, fontsize=15)
 
     if title != '':
-        fig.suptitle(title, fontsize=20)
-    # plt.legend()
+        fig.suptitle(title, y=0.93, fontsize=25)
+    fig.legend(labels=[i for i in range(n_clusters)], loc='lower center',
+               fontsize='x-large', ncol=8, markerscale=1.5,
+               bbox_to_anchor=(0.5, 0.05))
     plt.show()

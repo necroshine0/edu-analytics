@@ -1,12 +1,13 @@
 import multiprocessing
 cores = multiprocessing.cpu_count()
+RANDOM_STATE = 10
 
 lda_kwargs = {
     'learning_method':'online',
     'batch_size':128,
     'learning_decay':0.9,
     'n_components':16,
-    'random_state':10,
+    'random_state':RANDOM_STATE,
 }
 
 tfidf_kwargs = {
@@ -23,6 +24,7 @@ w2v_kwargs = {
     'workers':cores - 1,
     'epochs':15,
     'negative':9,
+    'seed':RANDOM_STATE,
 }
 
 d2v_kwargs = {
@@ -31,24 +33,18 @@ d2v_kwargs = {
     'workers':cores - 1,
     'epochs':15,
     'negative':9,
+    'seed':RANDOM_STATE,
 }
 
 tsne_kwargs = {
     'metric':'cosine',
     'learning_rate':'auto',
     'min_grad_norm':1e-8,
-    'random_state':10,
+    'random_state':RANDOM_STATE,
     'init':'pca',
     'perplexity':20,
     'method':'barnes_hut',
 }
-
-# pca_kwargs = {
-#     'n_components':2,
-#     'random_state':30,
-#     'tol':1e-6,
-#     'svd_solver':'full',
-# }
 
 kmeans_kwargs = [
     *[{
@@ -56,7 +52,7 @@ kmeans_kwargs = [
         'init':'k-means++',
         'tol':1e-7,
         'max_iter':200,
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'algorithm':'elkan',
     }] * 3,
 
@@ -65,7 +61,7 @@ kmeans_kwargs = [
         'init':'random',
         'tol':1e-3,
         'max_iter':150,
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'algorithm':'elkan',
     }
 ]
@@ -79,7 +75,7 @@ gm_kwargs = [
         'max_iter':200,
         'n_init':5,
         'init_params':'kmeans',
-        'random_state':10,
+        'random_state':RANDOM_STATE,
     }] * 3,
 
     {
@@ -90,7 +86,7 @@ gm_kwargs = [
         'max_iter':300,
         'n_init':7,
         'init_params':'kmeans',
-        'random_state':10,
+        'random_state':RANDOM_STATE,
     }
 ]
 
@@ -101,7 +97,7 @@ spectral_kwargs = [
         'assign_labels':'kmeans',
         'n_init':7,
         'eigen_solver':'lobpcg',
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'affinity':'nearest_neighbors',
         'n_neighbors':12,
         'n_jobs':-1,
@@ -113,7 +109,7 @@ spectral_kwargs = [
         'assign_labels':'kmeans',
         'n_init':10,
         'eigen_solver':'lobpcg',
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'affinity':'nearest_neighbors',
         'n_neighbors':15,
         'n_jobs':-1,
@@ -125,7 +121,7 @@ spectral_kwargs = [
         'assign_labels':'kmeans',
         'n_init':5,
         'eigen_solver':'arpack',
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'affinity':'nearest_neighbors',
         'n_neighbors':10,
         'n_jobs':-1,
@@ -137,7 +133,7 @@ spectral_kwargs = [
         'assign_labels':'kmeans',
         'n_init':4,
         'eigen_solver':'lobpcg', # lobpcg/arpack
-        'random_state':10,
+        'random_state':RANDOM_STATE,
         'affinity':'nearest_neighbors',
         'n_neighbors':40,
         'n_jobs':-1,
