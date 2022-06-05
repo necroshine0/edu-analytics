@@ -1,5 +1,6 @@
 import multiprocessing
-cores = multiprocessing.cpu_count()
+# cores = multiprocessing.cpu_count()
+cores = 2
 RANDOM_STATE = 10
 
 lda_kwargs = {

@@ -49,6 +49,16 @@ def draw_cluster_clouds(data, clusters, n_clusters, alert_by='text', cloud_kwarg
         display(draw_wordcloud(data.iloc[inds][alert_by], **cloud_kwargs))
 
 
+def print_names(data, clusters, n_clusters):
+    for i in range(n_clusters):
+        inds = get_inds(clusters, i)
+        if len(inds) == 0:
+            continue
+        print('cluster: {}; samples: {}'.format(i + 1, len(inds)))
+        for ind in inds:
+            print('\t{}'.format(data.iloc[ind]['name']))
+
+
 def plot_data_embs(data_tsne: dict, title=''):
     fig, axes = plt.subplots(nrows=1, ncols=len(data_tsne), figsize=(24, 6))
     for j, (emb_name, X_emb) in enumerate(data_tsne.items()):
@@ -90,8 +100,7 @@ def plot_clustering(n_clusters, data_tsne: dict, labels: dict, methods: list, em
             labels_method = labels[i][emb_name]
             L = len(labels_method)
             for k in range(n_clusters):
-                inds = np.argwhere(labels_method == k).reshape((-1,))
-
+                inds = get_inds(labels_method, k)
                 axes[j][i].scatter(X_emb[inds, 0], X_emb[inds, 1], c=colors[k],
                                    linewidths=0.7, alpha=get_alpha(len(inds) / L))
 
@@ -102,7 +111,29 @@ def plot_clustering(n_clusters, data_tsne: dict, labels: dict, methods: list, em
 
     if title != '':
         fig.suptitle(title, y=0.93, fontsize=25)
-    fig.legend(labels=[i for i in range(n_clusters)], loc='lower center',
+    fig.legend(labels=[i + 1 for i in range(n_clusters)], loc='lower center',
                fontsize='x-large', ncol=8, markerscale=1.5,
                bbox_to_anchor=(0.5, 0.05))
+    plt.show()
+
+
+def plot_factorization(n_clusters, X, labels: list, title=''):
+
+    figsize = (10, 10)
+    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=figsize, squeeze=False)
+    L = len(labels)
+
+    for k in range(n_clusters):
+        inds = get_inds(labels, k)
+        if len(inds) == 0:
+            continue
+        axes[0][0].scatter(X[inds, 0], X[inds, 1], c=colors[k], label=k+1,
+                                linewidths=5, alpha=get_alpha(len(inds) / L))
+
+        axes[0][0].set_ylabel('dim 2', fontsize=15)
+        axes[0][0].set_xlabel('dim 1', fontsize=15)
+
+    if title != '':
+        fig.suptitle(title, y=0.93, fontsize=25)
+    fig.legend(loc='right', fontsize='medium', markerscale=1.5)
     plt.show()
