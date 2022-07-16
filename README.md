@@ -9,7 +9,7 @@ v1.0:
 
 v2.0:
 * Dataset extension
-* Markup
+* Labeling
 * External metrics (B-Cubed, Dunn's Index?)
 
 [Dataset link:](https://www.youtube.com/watch?v=FjLhLgdhzMQ) soon
