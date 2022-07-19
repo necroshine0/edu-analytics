@@ -11,6 +11,13 @@ lda_kwargs = {
     'random_state':RANDOM_STATE,
 }
 
+lda_kwargs_small = {
+    'learning_method':'online',
+    'batch_size':128,
+    'learning_decay':0.8,
+    'random_state':RANDOM_STATE,
+}
+
 tfidf_kwargs = {
     'encoding':'ansi',
     'decode_error':'ignore',
@@ -24,6 +31,15 @@ w2v_kwargs = {
     'window':10,
     'workers':cores - 1,
     'epochs':15,
+    'negative':9,
+    'seed':RANDOM_STATE,
+}
+
+w2v_kwargs_small = {
+    'vector_size':2500,
+    'window':15,
+    'workers':cores - 1,
+    'epochs':20,
     'negative':9,
     'seed':RANDOM_STATE,
 }
@@ -66,6 +82,13 @@ kmeans_kwargs = [
         'algorithm':'elkan',
     }
 ]
+
+kmeans_kwargs_small = {
+        'init':'random',
+        'tol':1e-5,
+        'random_state':RANDOM_STATE,
+        'algorithm':'lloyd',
+}
 
 gm_kwargs = [
     *[{
