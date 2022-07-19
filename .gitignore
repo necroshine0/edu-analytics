@@ -1,5 +1,6 @@
 parsing-notebooks/
 extend-notebooks/*.json
 extend-notebooks/*.txt
+extend-notebooks/*.csv
 extend-notebooks/markup-1/*.txt
 extend-notebooks/markup-2/*.txt
