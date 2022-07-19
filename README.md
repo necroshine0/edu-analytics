@@ -14,9 +14,9 @@ Educational Analysis: Curriculum Clustering (and Data Mining)
 ### extend-notebooks folder:
 * Dataset extension - ✅
 * Labeling - ✅
-* External metrics (B-Cubed, Dunn's Index?) - TODO
 
 ### main-notebooks folder:
+* External metrics (B-Cubed, Dunn's Index?) - TODO
 * Aglorithms improvement - TODO
 * Visualization - TODO
 
