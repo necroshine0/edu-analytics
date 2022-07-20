@@ -74,3 +74,39 @@ def XieBeniIndex(X, labels, K=None):
     wgss = WGSS(X, labels, K)
 
     return wgss / delta_btw / len(X)
+
+
+# ======================================= B-Cubed =====================================
+
+class BCubed(object):
+    def correctness(self, y, ax):
+        '''
+            computes correctness matrix:
+            C(ij) = [yi == yj] * [a(xi) == a(xj)]
+            y  - labels
+            ax - predictions
+        '''
+        assert y.shape == ax.shape and len(y.shape) == 1
+        matching_y = (y.reshape((-1, 1)) == y).astype(int)
+        matching_ax = (ax.reshape((-1, 1)) == ax).astype(int)
+        # C = matching_y * matching_ax
+        C_sum = (matching_y * matching_ax).sum(axis=1)
+        return C_sum, matching_y.sum(axis=1), matching_ax.sum(axis=1)
+
+
+    def precision(self, C_sum, ax_sum):
+        return np.mean(C_sum / ax_sum)
+
+    def recall(self, C_sum, y_sum):
+        return np.mean(C_sum / y_sum)
+
+
+    def fscore(self, y, ax, beta=None):
+        C_sum, y_sum, ax_sum = self.correctness(y, ax)
+        prec, rec = self.precision(C_sum, ax_sum), self.recall(C_sum, y_sum)
+
+        if beta is None:
+            fscore = (2 * prec * rec) / (prec + rec)
+        else:
+            fscore = (1.0 + beta ** 2) * (prec * rec / (beta ** 2 * prec + rec))
+        return fscore

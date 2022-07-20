@@ -4,3 +4,6 @@ extend-notebooks/*.txt
 extend-notebooks/*.csv
 extend-notebooks/markup-1/*.txt
 extend-notebooks/markup-2/*.txt
+codes/__pycache__/
+main-notebooks/.ipynb_checkpoints/
+extend-notebooks/.ipynb_checkpoints/
