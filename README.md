@@ -16,8 +16,8 @@ Educational Analysis: Curriculum Clustering (and Data Mining)
 * Labeling - ✅
 
 ### main-notebooks folder:
-* External metrics (B-Cubed, Dunn's Index?) - TODO
-* Aglorithms improvement - TODO
+* External metrics: B-Cubed - ✅
+* Aglorithms improvement - in progress
 * Visualization - TODO
 
 ## [Dataset link:](https://www.youtube.com/watch?v=FjLhLgdhzMQ) soon
